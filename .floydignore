@@ -1,0 +1,16 @@
+ml-latest
+ml-latest-small
+.ipynb_checkpoints
+# Directories and files to ignore when uploading code to floyd
+
+.git
+.eggs
+eggs
+lib
+lib64
+parts
+sdist
+var
+*.pyc
+*.swp
+.DS_Store
