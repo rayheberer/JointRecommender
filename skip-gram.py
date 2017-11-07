@@ -168,18 +168,18 @@ with tf.Session(graph=train_graph) as sess:
                 loss = 0
                 start = time.time()
             
-            if iteration % 1000 == 0:
-                # note that this is expensive (~20% slowdown if computed every 500 steps)
-                sim = similarity.eval()
-                for i in range(valid_size):
-                    valid_word = int_to_vocab[valid_examples[i]]
-                    top_k = 8 # number of nearest neighbors
-                    nearest = (-sim[i, :]).argsort()[1:top_k+1]
-                    log = 'Nearest to %s:' % valid_word
-                    for k in range(top_k):
-                        close_word = int_to_vocab[nearest[k]]
-                        log = '%s %s,' % (log, close_word)
-                    print(log)
+            #if iteration % 1000 == 0:
+            #    # note that this is expensive (~20% slowdown if computed every 500 steps)
+            #    sim = similarity.eval()
+            #    for i in range(valid_size):
+            #        valid_word = int_to_vocab[valid_examples[i]]
+            #        top_k = 8 # number of nearest neighbors
+            #        nearest = (-sim[i, :]).argsort()[1:top_k+1]
+            #        log = 'Nearest to %s:' % valid_word
+            #        for k in range(top_k):
+            #            close_word = int_to_vocab[nearest[k]]
+            #            log = '%s %s,' % (log, close_word)
+            #        print(log)
             
             iteration += 1
     save_path = saver.save(sess, "/output/movie.ckpt")
