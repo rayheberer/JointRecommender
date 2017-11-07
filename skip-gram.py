@@ -59,8 +59,8 @@ def get_batches(dataset, movies_df, vocab_to_int, n_batches, batch_size, window_
 
     for idx in range(0, len(dataset)-100, batch_size):
         x, y = [], []
-        batch = dataset.iloc[idx:idx+batch_size + 100] # buffer for invalid targets
-                                                       # TODO: eliminate the need for this workaround
+        batch = dataset.iloc[idx:idx+batch_size+100] # buffer for invalid targets
+                                                     # TODO: eliminate the need for this workaround
         
         ii = 0
         ix = 0
@@ -74,8 +74,11 @@ def get_batches(dataset, movies_df, vocab_to_int, n_batches, batch_size, window_
                 y.extend(batch_y)
                 x.extend([batch_x]*len(batch_y))
             ix += 1
-            
+            if ix >= batch_size + 100:
+            	break
         x = np.array(x).reshape((-1,))
+        if x.shape[0] < batch_size:
+        	raise StopIteration
         yield x, y
     
 movies = pd.read_csv('/ml-latest/movies.csv')
@@ -179,5 +182,5 @@ with tf.Session(graph=train_graph) as sess:
                     print(log)
             
             iteration += 1
-    save_path = saver.save(sess, "output/movie.ckpt")
+    save_path = saver.save(sess, "/output/movie.ckpt")
     embed_mat = sess.run(normalized_embedding)
