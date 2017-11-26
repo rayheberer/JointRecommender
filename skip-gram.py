@@ -181,6 +181,10 @@ with tf.Session(graph=train_graph) as sess:
             #            log = '%s %s,' % (log, close_word)
             #        print(log)
             
+            if iteration % 10000 == 0:
+                save_path = saver.save(sess, "/output/movie.ckpt")
+                embed_mat = sess.run(normalized_embedding)
+
             iteration += 1
     save_path = saver.save(sess, "/output/movie.ckpt")
     embed_mat = sess.run(normalized_embedding)
