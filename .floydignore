@@ -1,8 +1,8 @@
+# Directories and files to ignore when uploading code to floyd
 ml-latest
 ml-latest-small
+checkpoints
 .ipynb_checkpoints
-# Directories and files to ignore when uploading code to floyd
-
 .git
 .eggs
 eggs
